@@ -10,12 +10,14 @@ Used technologies: NX | Next.js | Typescript | Prisma | NeonDB | Styled componen
 - [x] Deploy to vercel
 - [x] Setup neon db
 - [x] Add prisma
-- [ ] Scaffold basic UI layout
-- [ ] Add todos cards
+- [x] Scaffold basic UI layout
+- [x] Add todos cards
+- [x] Add pagination of todos
 - [ ] Create dynamic routes
 - [ ] Create todos detail page
 - [ ] Add functionality and form for adding new todos
+- [ ] Load todos from database
 - [ ] Implement deleting todos functionality
-- [ ] Add Search functionality
+- [x] Add Search functionality
 - [ ] Style the final app
 - [ ] Review code quality
