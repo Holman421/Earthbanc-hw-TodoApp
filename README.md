@@ -13,10 +13,10 @@ Used technologies: NX | Next.js | Typescript | Prisma | NeonDB | Styled componen
 - [x] Scaffold basic UI layout
 - [x] Add todos cards
 - [x] Add pagination of todos
-- [ ] Create dynamic routes
+- [x] Create dynamic routes
 - [ ] Create todos detail page
-- [ ] Add functionality and form for adding new todos
-- [ ] Load todos from database
+- [x] Add functionality and form for adding new todos
+- [x] Load todos from database
 - [ ] Implement deleting todos functionality
 - [x] Add Search functionality
 - [ ] Style the final app

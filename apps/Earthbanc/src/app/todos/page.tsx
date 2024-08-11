@@ -1,42 +1,33 @@
-"use client";
+// "use client";
 
 import SearchTodos from "apps/Earthbanc/components/SearchTodos";
 import TodoList from "apps/Earthbanc/components/TodoList";
-import { useQuery } from "@tanstack/react-query";
-import { getTodos } from "apps/Earthbanc/actions/getTodos";
-import React, { useState } from "react";
+import { db } from "apps/Earthbanc/prisma/db";
+// import React, { useState } from "react";
 
-export default function Page() {
-  const [searchValue, setSearchValue] = useState("");
 
-  const {
-    data: todos,
-    error,
-    isLoading,
-  } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
+export default async function page() {
+  //   const [searchValue, setSearchValue] = useState("");
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
+  let todos;
+  try {
+    todos = await db.todo.findMany();
+    console.log("Todos:", todos);
+  } catch (error) {
+    console.error("Error fetching todos:", error);
     return <div>Error fetching todos</div>;
   }
 
-  if (!todos) {
-    return <div>No todos found</div>;
-  }
-
-  const filteredTodos = todos.filter(
-    (todo) =>
-      todo.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-      todo.description.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  //   const filteredTodos = todos.filter(
+  //     (todo) =>
+  //       todo.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //       todo.description.toLowerCase().includes(searchValue.toLowerCase())
+  //   );
 
   return (
     <div>
-      <SearchTodos searchValue={searchValue} setSearchValue={setSearchValue} />
-      <TodoList todos={filteredTodos} />
+      {/* <SearchTodos searchValue={searchValue} setSearchValue={setSearchValue} /> */}
+      <TodoList todos={todos} />
     </div>
   );
 }
