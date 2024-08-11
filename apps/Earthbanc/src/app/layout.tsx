@@ -1,5 +1,7 @@
+import Navbar from "apps/Earthbanc/components/Navbar";
 import "./global.css";
 import { StyledComponentsRegistry } from "./registry";
+import LayoutContainer from "apps/Earthbanc/components/LayoutContainer";
 
 export const metadata = {
   title: "Welcome to demo2",
@@ -14,7 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <StyledComponentsRegistry>
+          <LayoutContainer>
+            <Navbar />
+            {children}
+          </LayoutContainer>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

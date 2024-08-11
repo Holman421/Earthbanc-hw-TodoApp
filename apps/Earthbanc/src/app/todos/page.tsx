@@ -1,14 +1,7 @@
-// "use client";
-
-import SearchTodos from "apps/Earthbanc/components/SearchTodos";
-import TodoList from "apps/Earthbanc/components/TodoList";
+import TodoListContainer from "apps/Earthbanc/components/TodoListContainer";
 import { db } from "apps/Earthbanc/prisma/db";
-// import React, { useState } from "react";
-
 
 export default async function page() {
-  //   const [searchValue, setSearchValue] = useState("");
-
   let todos;
   try {
     todos = await db.todo.findMany();
@@ -18,16 +11,7 @@ export default async function page() {
     return <div>Error fetching todos</div>;
   }
 
-  //   const filteredTodos = todos.filter(
-  //     (todo) =>
-  //       todo.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //       todo.description.toLowerCase().includes(searchValue.toLowerCase())
-  //   );
+  todos.sort((a, b) => a.title.localeCompare(b.title));
 
-  return (
-    <div>
-      {/* <SearchTodos searchValue={searchValue} setSearchValue={setSearchValue} /> */}
-      <TodoList todos={todos} />
-    </div>
-  );
+  return <TodoListContainer todos={todos} />;
 }

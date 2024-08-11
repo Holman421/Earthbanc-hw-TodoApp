@@ -1,15 +1,18 @@
-import React from "react";
+import React, { startTransition } from "react";
 import styled, { css } from "styled-components";
 import ImportanceTag from "./ImportanceTag";
 import Link from "next/link";
 import { Todo } from "@prisma/client";
+import DeleteButton from "./DeleteButton";
+import actions from "../actions";
 
 const TodoCardContainer = styled.div<{ isDone: boolean }>`
   display: flex;
   flex-direction: column;
   padding: 1rem 1.4rem;
   border-radius: 0.5rem;
-  background-color: #e8e5a1;
+  background-color: white;
+
   position: relative;
   overflow: hidden;
   width: 350px;
@@ -21,7 +24,6 @@ const TodoCardContainer = styled.div<{ isDone: boolean }>`
   }
   h2 {
     font-size: 1.25rem;
-    margin-bottom: 0.5rem;
   }
   p {
     font-size: 0.8rem;
@@ -30,7 +32,7 @@ const TodoCardContainer = styled.div<{ isDone: boolean }>`
 
 const HeadingContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: .7rem;
   align-items: center;
 `;
 
@@ -57,6 +59,12 @@ const IsDoneFlag = styled.div<{ isDone: boolean }>`
         `};
 `;
 
+const ButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+`;
+
 const Button = styled.button`
   background-color: #f1f1f1;
   padding: 0.4rem 0.8rem;
@@ -81,18 +89,35 @@ export default function TodoCard({
   priority,
   createdAt,
 }: Todo) {
+  const handleToggleTodoIsDone = () => {
+    startTransition(async () => {
+      await actions.toggleTodoIsDone(id);
+    });
+  };
+
+  const handleDeleteTodo = () => {
+    startTransition(async () => {
+      await actions.deleteTodo(id);
+    });
+  };
+
   return (
     <TodoCardContainer isDone={isDone}>
       <HeadingContainer>
         <h2>{title}</h2>
         <ImportanceTag priority={priority} />
+        <ButtonWrapper>
+          <DeleteButton onClick={handleDeleteTodo} showText={false} />
+        </ButtonWrapper>
       </HeadingContainer>
       <p>{createdAt.toLocaleDateString("cs-CZ")}</p>
       <ButtonContainer>
         <Button>
           <Link href={`/todoDetail/${id}`}>View detail</Link>
         </Button>
-        <Button>Complete</Button>
+        <Button onClick={handleToggleTodoIsDone}>
+          {isDone ? "Uncomplete" : "Complete"}
+        </Button>
       </ButtonContainer>
       <IsDoneFlag isDone={isDone} />
     </TodoCardContainer>

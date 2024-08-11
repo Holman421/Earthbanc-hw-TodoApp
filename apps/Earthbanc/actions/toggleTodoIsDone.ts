@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { db } from "../prisma/db";
 
-export async function deleteTodo(todoId: string) {
+export async function toggleTodoIsDone(todoId: string) {
   const todo = await db.todo.findUnique({
     where: {
       id: todoId,
@@ -16,11 +16,14 @@ export async function deleteTodo(todoId: string) {
 
   revalidatePath(`/todos`);
 
-  await db.todo.delete({
+  const updatedTodo = await db.todo.update({
     where: {
       id: todoId,
     },
+    data: {
+      isDone: !todo.isDone,
+    },
   });
 
-  return todo;
+  return updatedTodo;
 }

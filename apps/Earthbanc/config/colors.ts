@@ -3,3 +3,4 @@ export const tagColors = {
   MEDIUM: "#f0ad4e",
   HIGH: "#d9534f",
 };
+

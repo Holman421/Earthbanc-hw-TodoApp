@@ -3,7 +3,8 @@
 import React from "react";
 import { useFormState } from "react-dom";
 import styled from "styled-components";
-import { createTodo } from "../actions/createTodo";
+import AttentionBlock from "./AttentionBlock";
+import actions from "../actions";
 
 const Container = styled.div`
   margin: auto;
@@ -17,19 +18,23 @@ const Container = styled.div`
 
 const Title = styled.h2`
   margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
 `;
 
 const Form = styled.form`
   width: clamp(10rem, 600%, 35rem);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem 3rem 3rem 3rem;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 2rem 2.5rem 2.5rem 2.5rem;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Label = styled.label`
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
 `;
 
 const Input = styled.input`
@@ -67,7 +72,7 @@ const Button = styled.button`
 `;
 
 export default function NewTodoForm() {
-  const [formState, action] = useFormState(createTodo, {
+  const [formState, action] = useFormState(actions.createTodo, {
     titleError: "",
     descriptionError: "",
     priorityError: "",
@@ -79,6 +84,35 @@ export default function NewTodoForm() {
     formState.titleError ||
     formState.descriptionError ||
     formState.priorityError;
+
+  const renderMessages = () => {
+    const renderError = (error: string | undefined) => {
+      return error ? (
+        <AttentionBlock text={error} sentiment="negative" />
+      ) : null;
+    };
+
+    if (hasError) {
+      return (
+        <>
+          {renderError(formState.titleError)}
+          {renderError(formState.descriptionError)}
+          {renderError(formState.priorityError)}
+        </>
+      );
+    }
+
+    if (formState.isSuccessful) {
+      return (
+        <AttentionBlock
+          text="Todo was successfully created!"
+          sentiment="positive"
+        />
+      );
+    }
+
+    return null;
+  };
 
   return (
     <Container>
@@ -96,16 +130,7 @@ export default function NewTodoForm() {
         </Select>
         <Button type="submit">Create</Button>
       </Form>
-      {hasError && (
-        <div>
-          {formState.titleError && <div>{formState.titleError}</div>}
-          {formState.descriptionError && (
-            <div>{formState.descriptionError}</div>
-          )}
-          {formState.priorityError && <div>{formState.priorityError}</div>}
-        </div>
-      )}
-      {formState.isSuccessful && <div>Tým byl úspěšně zaregistrován</div>}
+      {renderMessages()}
     </Container>
   );
 }

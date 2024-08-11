@@ -20,12 +20,17 @@ export async function createTodo(
   const priority = formData.get("priority") as Priority | null;
 
   const titleError = title === "";
+  const titleLengthError = title.length > 20;
   const descriptionError = description === "";
   const priorityError = priority === null;
 
   if (titleError || descriptionError || priorityError) {
     return {
-      titleError: titleError ? "Title is required" : "",
+      titleError: titleError
+        ? "Title is required"
+        : titleLengthError
+        ? "Title needs to be less than 20 characters"
+        : "",
       descriptionError: descriptionError ? "Description is required" : "",
       priorityError: priorityError ? "Priority is required" : "",
       databaseError: "",

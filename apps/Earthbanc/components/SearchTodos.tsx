@@ -7,16 +7,16 @@ type SearchTodosProps = {
 };
 
 const SeachTodosContainer = styled.div`
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const SearchInput = styled.input`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   margin-top: 0.5rem;
-  width: 350px;
+  border: 1px solid #ccc;
 `;
 
 export default function SearchTodos({
