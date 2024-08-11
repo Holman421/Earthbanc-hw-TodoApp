@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import ImportanceTag from "./ImportanceTag";
-
-type TodoProps = Todo;
+import Link from "next/link";
+import { Todo } from "@prisma/client";
 
 const TodoCardContainer = styled.div<{ isDone: boolean }>`
   display: flex;
@@ -80,7 +80,7 @@ export default function TodoCard({
   isDone,
   priority,
   createdAt,
-}: TodoProps) {
+}: Todo) {
   return (
     <TodoCardContainer isDone={isDone}>
       <HeadingContainer>
@@ -89,7 +89,9 @@ export default function TodoCard({
       </HeadingContainer>
       <p>{createdAt.toLocaleDateString("cs-CZ")}</p>
       <ButtonContainer>
-        <Button>View detail</Button>
+        <Button>
+          <Link href={`/todoDetail/${id}`}>View detail</Link>
+        </Button>
         <Button>Complete</Button>
       </ButtonContainer>
       <IsDoneFlag isDone={isDone} />

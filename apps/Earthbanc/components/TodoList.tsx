@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useState } from "react";
 import TodoCard from "./TodoCard";
 import styled from "styled-components";
 import Button from "./Button";
+import { Todo } from "@prisma/client";
 
 const TodoListContainer = styled.div`
   display: flex;
@@ -29,15 +32,15 @@ type TodoListProps = {
   todos: Todo[];
 };
 
-export default function TodoList({ todos: dummyTodos }: TodoListProps) {
+export default function TodoList({ todos }: TodoListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const todosPerPage = 3;
 
   const startIndex = (currentPage - 1) * todosPerPage;
   const endIndex = startIndex + todosPerPage;
-  const currentTodos = dummyTodos.slice(startIndex, endIndex);
+  const currentTodos = todos.slice(startIndex, endIndex);
 
-  const totalPages = Math.ceil(dummyTodos.length / todosPerPage);
+  const totalPages = Math.ceil(todos.length / todosPerPage);
 
   return (
     <TodoListContainer>
