@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { tagColors } from "../config/colors";
+import { Priority } from "@prisma/client";
 
 const ImportanceTagContainer = styled.div<{ priority: Priority }>`
   background-color: ${(props) => tagColors[props.priority]};

@@ -5,7 +5,6 @@ export default async function page() {
   let todos;
   try {
     todos = await db.todo.findMany();
-    console.log("Todos:", todos);
   } catch (error) {
     console.error("Error fetching todos:", error);
     return <div>Error fetching todos</div>;

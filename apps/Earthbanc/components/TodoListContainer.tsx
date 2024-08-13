@@ -5,7 +5,7 @@ import TodoCard from "./TodoCard";
 import styled from "styled-components";
 import { Todo } from "@prisma/client";
 import SearchTodos from "./SearchTodos";
-import TodosPagination from "./TodosPagination";
+import TodoListPagination from "./TodoListPagination";
 import Button from "./Button";
 import Link from "next/link";
 
@@ -71,7 +71,7 @@ export default function TodoListContainer({ todos }: TodoListContainerProps) {
         </EmptyListContainer>
       )}
 
-      <TodosPagination
+      <TodoListPagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}

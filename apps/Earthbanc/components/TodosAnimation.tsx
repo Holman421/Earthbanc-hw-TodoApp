@@ -7,6 +7,8 @@ import gsap from "gsap";
 import DummyTodoCard from "./DummyTodoCard";
 import { dummyTodos } from "../config/dummyTodos";
 
+gsap.registerPlugin();
+
 const AnimationContainer = styled.div`
   position: absolute;
   right: 40%;

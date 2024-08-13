@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
 
-const TodosPaginationContainer = styled.div`
+const TodoListPaginationContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,13 +11,13 @@ const TodosPaginationContainer = styled.div`
   font-size: 0.8rem;
 `;
 
-type TodosPaginationProps = {
+type TodoListPaginationProps = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
 };
 
-const TodosPagination: React.FC<TodosPaginationProps> = ({
+const TodoListPagination: React.FC<TodoListPaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -27,7 +27,7 @@ const TodosPagination: React.FC<TodosPaginationProps> = ({
   }
 
   return (
-    <TodosPaginationContainer>
+    <TodoListPaginationContainer>
       <Button
         onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
         disabled={currentPage === 1}
@@ -43,8 +43,8 @@ const TodosPagination: React.FC<TodosPaginationProps> = ({
       >
         Next
       </Button>
-    </TodosPaginationContainer>
+    </TodoListPaginationContainer>
   );
 };
 
-export default TodosPagination;
+export default TodoListPagination;
