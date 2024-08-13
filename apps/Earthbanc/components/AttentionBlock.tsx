@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { feedbackColors } from "../config/colors";
 
 interface AttentionBlockProps {
   text: string;
@@ -31,30 +32,30 @@ const getColor = (sentiment: "positive" | "neutral" | "negative") => {
 };
 
 const Block = styled.div<{ sentiment: "positive" | "neutral" | "negative" }>`
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   margin-top: 1rem;
   background-color: ${({ sentiment }) => getColor(sentiment)};
   animation: ${fadeIn} 0.5s ease-in-out;
   font-size: 0.9rem;
-    color: white;
+  color: white;
 
   ${({ sentiment }) =>
     sentiment === "positive" &&
     css`
-      border: 1px solid #218838;
+      border: 1px solid ${feedbackColors.positive};
     `}
 
   ${({ sentiment }) =>
     sentiment === "neutral" &&
     css`
-      border: 1px solid #e0a800;
+      border: 1px solid ${feedbackColors.neutral};
     `}
 
   ${({ sentiment }) =>
     sentiment === "negative" &&
     css`
-      border: 1px solid #c82333;
+      border: 1px solid ${feedbackColors.negative};
     `}
 `;
 

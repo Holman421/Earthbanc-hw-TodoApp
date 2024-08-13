@@ -2,8 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { db } from "../prisma/db";
+import { redirect } from "next/navigation";
 
-export async function deleteTodo(todoId: string) {
+export async function deleteTodo(todoId: string, redirectUrl?: string) {
   const todo = await db.todo.findUnique({
     where: {
       id: todoId,
@@ -21,6 +22,12 @@ export async function deleteTodo(todoId: string) {
       id: todoId,
     },
   });
+
+  console.log(redirectUrl);
+
+  if (redirectUrl) {
+    redirect(redirectUrl);
+  }
 
   return todo;
 }

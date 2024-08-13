@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { Todo } from "@prisma/client";
 import SearchTodos from "./SearchTodos";
 import TodosPagination from "./TodosPagination";
+import Button from "./Button";
+import Link from "next/link";
 
 const TodoListContainerWrapper = styled.div`
   display: flex;
@@ -19,6 +21,15 @@ const TodoListContainerWrapper = styled.div`
 const PageHeading = styled.h1`
   font-size: 2rem;
   margin-top: 2rem;
+  font-weight: 700;
+`;
+
+const EmptyListContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 type TodoListContainerProps = {
@@ -31,15 +42,15 @@ export default function TodoListContainer({ todos }: TodoListContainerProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
 
-  const startIndex = (currentPage - 1) * TODOS_PER_PAGE;
-  const endIndex = startIndex + TODOS_PER_PAGE;
-  const totalPages = Math.ceil(todos.length / TODOS_PER_PAGE);
-
   const filteredTodos = todos.filter(
     (todo) =>
       todo.title.toLowerCase().includes(searchValue.toLowerCase()) ||
       todo.description.toLowerCase().includes(searchValue.toLowerCase())
   );
+
+  const startIndex = (currentPage - 1) * TODOS_PER_PAGE;
+  const endIndex = startIndex + TODOS_PER_PAGE;
+  const totalPages = Math.ceil(filteredTodos.length / TODOS_PER_PAGE);
   const currentTodos = filteredTodos.slice(startIndex, endIndex);
 
   return (
@@ -50,6 +61,16 @@ export default function TodoListContainer({ todos }: TodoListContainerProps) {
       {currentTodos.map((todo) => (
         <TodoCard key={todo.id} {...todo} />
       ))}
+
+      {currentTodos.length === 0 && (
+        <EmptyListContainer>
+          <div>Your todo list is currently empty</div>
+          <Link href="/createTodo">
+            <Button>Create a new todo</Button>
+          </Link>
+        </EmptyListContainer>
+      )}
+
       <TodosPagination
         currentPage={currentPage}
         totalPages={totalPages}

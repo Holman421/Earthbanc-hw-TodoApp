@@ -5,31 +5,35 @@ import { useFormState } from "react-dom";
 import styled from "styled-components";
 import AttentionBlock from "./AttentionBlock";
 import actions from "../actions";
+import Button from "./Button";
+import SecondaryButton from "./SecondaryButton";
+import Link from "next/link";
 
 const Container = styled.div`
   margin: auto;
-  margin-top: 4rem;
+  margin-top: 2rem;
   margin-bottom: 3rem;
-  width: clamp(15rem, 100%, 60rem);
+  padding: 0 2rem;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Title = styled.h2`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2rem;
   font-weight: 700;
 `;
 
 const Form = styled.form`
-  width: clamp(10rem, 600%, 35rem);
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 2rem 2.5rem 2.5rem 2.5rem;
   background-color: white;
   border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;
 
 const Label = styled.label`
@@ -58,17 +62,12 @@ const Select = styled.select`
   border-radius: 4px;
 `;
 
-const Button = styled.button`
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
+const PositiveFeedbackContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
 `;
 
 export default function NewTodoForm() {
@@ -104,10 +103,15 @@ export default function NewTodoForm() {
 
     if (formState.isSuccessful) {
       return (
-        <AttentionBlock
-          text="Todo was successfully created!"
-          sentiment="positive"
-        />
+        <PositiveFeedbackContainer>
+          <AttentionBlock
+            text="Todo was successfully created!"
+            sentiment="positive"
+          />
+          <Link href="/todos">
+            <SecondaryButton>View new todo</SecondaryButton>
+          </Link>
+        </PositiveFeedbackContainer>
       );
     }
 

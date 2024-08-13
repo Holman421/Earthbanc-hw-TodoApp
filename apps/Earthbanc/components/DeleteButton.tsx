@@ -10,9 +10,7 @@ interface ButtonProps {
 }
 
 const StyledButton = styled.button<{ showText: boolean }>`
-  background-color: #dc3545;
-  color: white;
-  border: none;
+  border: 1px solid black;
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
@@ -21,9 +19,11 @@ const StyledButton = styled.button<{ showText: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.2s;
+  font-weight: 300;
 
   &:hover {
-    background-color: darkred;
+    background-color: gray;
   }
 
   ${({ showText }) =>

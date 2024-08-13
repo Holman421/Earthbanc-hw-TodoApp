@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Todo } from "@prisma/client";
 import DeleteButton from "./DeleteButton";
 import actions from "../actions";
+import { formatDate } from "../utils/formatDate";
+import { feedbackColors } from "../config/colors";
 
 const TodoCardContainer = styled.div<{ isDone: boolean }>`
   display: flex;
@@ -12,12 +14,10 @@ const TodoCardContainer = styled.div<{ isDone: boolean }>`
   padding: 1rem 1.4rem;
   border-radius: 0.5rem;
   background-color: white;
-
   position: relative;
   overflow: hidden;
   width: 350px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   h2,
   p {
     text-decoration: ${(props) => (props.isDone ? "line-through" : "none")};
@@ -32,7 +32,7 @@ const TodoCardContainer = styled.div<{ isDone: boolean }>`
 
 const HeadingContainer = styled.div`
   display: flex;
-  gap: .7rem;
+  gap: 0.7rem;
   align-items: center;
 `;
 
@@ -52,16 +52,16 @@ const IsDoneFlag = styled.div<{ isDone: boolean }>`
   ${(props) =>
     props.isDone
       ? css`
-          background-color: #28a745;
+          background-color: ${feedbackColors.positive};
         `
       : css`
-          background-color: #dc3545;
+          background-color: ${feedbackColors.negative};
         `};
 `;
 
 const ButtonWrapper = styled.div`
   position: absolute;
-  top: 0.6rem;
+  top: 1rem;
   right: 1rem;
 `;
 
@@ -84,7 +84,6 @@ const Button = styled.button`
 export default function TodoCard({
   id,
   title,
-  description,
   isDone,
   priority,
   createdAt,
@@ -110,11 +109,11 @@ export default function TodoCard({
           <DeleteButton onClick={handleDeleteTodo} showText={false} />
         </ButtonWrapper>
       </HeadingContainer>
-      <p>{createdAt.toLocaleDateString("cs-CZ")}</p>
+      <p>{formatDate(createdAt)}</p>
       <ButtonContainer>
-        <Button>
-          <Link href={`/todoDetail/${id}`}>View detail</Link>
-        </Button>
+        <Link href={`/todoDetail/${id}`}>
+          <Button>View detail</Button>
+        </Link>
         <Button onClick={handleToggleTodoIsDone}>
           {isDone ? "Uncomplete" : "Complete"}
         </Button>

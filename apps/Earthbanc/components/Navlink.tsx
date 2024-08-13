@@ -8,18 +8,20 @@ type NavLinkProps = {
   heading: string;
   url: string;
   fontSize?: string;
+  renderUnderline?: boolean;
 };
 
-const StyledNavLink = styled(({ isActive, fontSize, ...props }) => (
-  <Link {...props} />
-))<{ isActive: boolean; fontSize?: string }>`
+const StyledNavLink = styled(({ isActive, ...props }) => <Link {...props} />)<{
+  isActive: boolean;
+  fontSize?: string;
+}>`
   display: inline-block;
-  color: ${({ isActive }) => (isActive ? "#e0f7fa" : "white")};
+  color: black;
   transition: all 200ms ease;
   position: relative;
   font-size: 1rem;
   z-index: 10;
-  font-size: ${({ fontSize }) => fontSize || "1rem"};
+  font-size: 1rem;
 
   &::before {
     content: "";
@@ -28,7 +30,7 @@ const StyledNavLink = styled(({ isActive, fontSize, ...props }) => (
     bottom: -4px;
     width: 100%;
     height: 2px;
-    background: #e0f7fa;
+    background: black;
     transform: ${({ isActive }) => (isActive ? "scaleX(1)" : "scaleX(0)")};
     transition: transform 300ms ease;
   }
@@ -36,18 +38,14 @@ const StyledNavLink = styled(({ isActive, fontSize, ...props }) => (
   &:hover::before {
     transform: scaleX(1);
   }
-
-  &:hover {
-    color: #e0f7fa;
-  }
 `;
 
-export default function NavLink({ heading, url, fontSize }: NavLinkProps) {
+export default function NavLink({ heading, url }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === url;
 
   return (
-    <StyledNavLink isActive={isActive} fontSize={fontSize} href={url}>
+    <StyledNavLink isActive={isActive} href={url}>
       {heading}
     </StyledNavLink>
   );

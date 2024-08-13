@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import styled from "styled-components";
 import NavLink from "./Navlink";
+import Link from "next/link";
 
 const NavbarContainer = styled.div`
   width: 100%;
@@ -11,32 +11,32 @@ const NavbarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #333;
-  color: white;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 `;
 
-const NavLinks = styled.div`
+const NavLinksContainer = styled.div`
   display: flex;
   gap: 1rem;
+  margin-right: 1rem;
 `;
 
-const Heading = styled(Link)`
-  font-size: 1.5rem;
-  color: white;
+const MainAppLink = styled(Link)`
+  font-size: 1.75rem;
+  color: black;
   text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
+  transition: all 0.2s;
+  font-weight: 700;
 `;
 
 export default function Navbar() {
   return (
     <NavbarContainer>
-      <NavLink heading="Todo App" url="/" fontSize="1.75rem" />
-      <NavLinks>
+      <MainAppLink href="/">Todo App</MainAppLink>
+      <NavLinksContainer>
         <NavLink heading="Create Todo" url="/createTodo" />
         <NavLink heading="View Todos" url="/todos" />
-      </NavLinks>
+      </NavLinksContainer>
     </NavbarContainer>
   );
 }
