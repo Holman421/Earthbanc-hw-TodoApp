@@ -7,7 +7,7 @@ export default async function page() {
     todos = await db.todo.findMany();
   } catch (error) {
     console.error("Error fetching todos:", error);
-    return <div>Error fetching todos</div>;
+    return <div>Error fetching todos: {error as string}</div>;
   }
 
   todos.sort((a, b) => a.title.localeCompare(b.title));
