@@ -23,8 +23,6 @@ export async function deleteTodo(todoId: string, redirectUrl?: string) {
     },
   });
 
-  console.log(redirectUrl);
-
   if (redirectUrl) {
     redirect(redirectUrl);
   }

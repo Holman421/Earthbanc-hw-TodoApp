@@ -1,5 +1,5 @@
 import TodoDetailCard from "apps/Earthbanc/components/TodoDetailCard";
-import { db } from "apps/Earthbanc/prisma/db";
+import { db } from "prisma/db";
 
 type TodoDetailProps = {
   params: {
