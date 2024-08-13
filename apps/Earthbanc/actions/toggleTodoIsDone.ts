@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { db } from "../../../prisma/db";
+import { db } from "../config/db";
 
 export async function toggleTodoIsDone(todoId: string) {
   const todo = await db.todo.findUnique({

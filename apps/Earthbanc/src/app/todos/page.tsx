@@ -1,5 +1,5 @@
 import TodoListContainer from "apps/Earthbanc/components/TodoListContainer";
-import { db } from "prisma/db";
+import { db } from "apps/Earthbanc/config/db";
 
 export default async function page() {
   let todos;
