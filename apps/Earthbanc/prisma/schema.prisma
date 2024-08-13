@@ -19,6 +19,6 @@ model Todo {
   title       String
   description String
   priority    Priority
-  isDone        Boolean  @default(false)
+  isDone      Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
