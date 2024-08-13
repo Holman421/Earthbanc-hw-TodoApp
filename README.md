@@ -21,4 +21,4 @@ Used technologies: NX | Next.js | React | Typescript | Prisma | NeonDB | Styled 
 - [x] Add Search functionality
 - [x] Style the final app
 - [x] Make it mobile responsive
-- [ ] Review code quality
+- [x] Review code quality
