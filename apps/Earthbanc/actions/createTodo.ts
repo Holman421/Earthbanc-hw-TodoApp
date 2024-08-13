@@ -1,8 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { db } from "../../../prisma/db";
 import { Priority } from "@prisma/client";
+import { db } from "../config/db";
 
 type createTodoError = {
   titleError?: string;

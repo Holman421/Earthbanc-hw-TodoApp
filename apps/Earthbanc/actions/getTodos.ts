@@ -1,4 +1,4 @@
-import { db } from "../../../prisma/db";
+import { db } from "../config/db";
 
 export async function getTodos() {
   try {

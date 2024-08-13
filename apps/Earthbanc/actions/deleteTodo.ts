@@ -1,8 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { db } from "../../../prisma/db";
 import { redirect } from "next/navigation";
+import { db } from "../config/db";
 
 export async function deleteTodo(todoId: string, redirectUrl?: string) {
   const todo = await db.todo.findUnique({
